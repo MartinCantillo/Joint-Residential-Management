@@ -1,3 +1,6 @@
+using RepositoriesIAuthenticationUser.IAuthenticationUser;
+using ServicesAuthenticationUser.AuthenticationUser;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -7,7 +10,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 //Aqui agrego mis servicios
-//builder.Services.AddScoped<>
+builder.Services.AddScoped<IAuthenticationUser,AuthenticationUser>();
 
 var app = builder.Build();
 
