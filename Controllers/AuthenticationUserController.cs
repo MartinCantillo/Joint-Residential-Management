@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using DataDataContext.DataContext;
-using ModelsUser.User;
+
 using ServicesAuthenticationUser.AuthenticationUser;
 using RepositoriesIAuthenticationUser.IAuthenticationUser;
 using System.Data.Entity;
+using ModelsUser.Usern;
 
 namespace ControllerAuthenticateUser.AuthenticateUser
 {
