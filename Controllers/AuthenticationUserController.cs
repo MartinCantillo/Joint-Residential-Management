@@ -47,8 +47,6 @@ namespace ControllerAuthenticateUser.AuthenticateUser
 
                 if (validatedUser != null && validatedUser.Roles != null)
                 {
-                    Console.WriteLine($"Usuario obtenido después de la consulta: {validatedUser.Username}");
-
 
                     // Generar el token
                     string token = _authenticationUser.GenerateToken(validatedUser.Id_User, validatedUser.Username, validatedUser.Roles);
@@ -56,7 +54,7 @@ namespace ControllerAuthenticateUser.AuthenticateUser
                 }
                 else
                 {
-                    Console.WriteLine($"validando{validatedUser.Roles}");
+
                     return BadRequest($"El usuario no tiene roles asignadosa");
                 }
             }

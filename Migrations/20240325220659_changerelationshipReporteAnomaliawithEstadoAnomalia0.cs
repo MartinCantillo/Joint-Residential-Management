@@ -7,7 +7,7 @@ using MySql.EntityFrameworkCore.Metadata;
 namespace Joint_Residential_Management.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class changerelationshipReporteAnomaliawithEstadoAnomalia0 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -19,7 +19,7 @@ namespace Joint_Residential_Management.Migrations
                 name: "ReporteAnomalias",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Id_ReporteA = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     DescripcionAnomalia = table.Column<string>(type: "longtext", nullable: false),
                     FechaReporteAnomalia = table.Column<DateTime>(type: "datetime(6)", nullable: false),
@@ -29,7 +29,7 @@ namespace Joint_Residential_Management.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ReporteAnomalias", x => x.Id);
+                    table.PrimaryKey("PK_ReporteAnomalias", x => x.Id_ReporteA);
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
 
@@ -40,7 +40,8 @@ namespace Joint_Residential_Management.Migrations
                     Id_User = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     Username = table.Column<string>(type: "longtext", nullable: false),
-                    Password = table.Column<string>(type: "longtext", nullable: false)
+                    Password = table.Column<string>(type: "longtext", nullable: false),
+                    Roles = table.Column<string>(type: "longtext", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -49,21 +50,23 @@ namespace Joint_Residential_Management.Migrations
                 .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "EstadoAnomalia",
+                name: "EstadosAnomalia",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     Nombre_Estado = table.Column<string>(type: "longtext", nullable: false),
-                    fechaEstado = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                    fechaEstado = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Id_ReporteA = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_EstadoAnomalia", x => x.Id);
+                    table.PrimaryKey("PK_EstadosAnomalia", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_EstadoAnomalia_ReporteAnomalias_Id",
-                        column: x => x.Id,
+                        name: "FK_EstadosAnomalia_ReporteAnomalias_Id_ReporteA",
+                        column: x => x.Id_ReporteA,
                         principalTable: "ReporteAnomalias",
-                        principalColumn: "Id",
+                        principalColumn: "Id_ReporteA",
                         onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
@@ -91,48 +94,25 @@ namespace Joint_Residential_Management.Migrations
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
 
-            migrationBuilder.CreateTable(
-                name: "Roles",
-                columns: table => new
-                {
-                    Id_Roles = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    nombre = table.Column<string>(type: "longtext", nullable: false),
-                    UserId_User = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Roles", x => x.Id_Roles);
-                    table.ForeignKey(
-                        name: "FK_Roles_Users_UserId_User",
-                        column: x => x.UserId_User,
-                        principalTable: "Users",
-                        principalColumn: "Id_User");
-                })
-                .Annotation("MySQL:Charset", "utf8mb4");
+            migrationBuilder.CreateIndex(
+                name: "IX_EstadosAnomalia_Id_ReporteA",
+                table: "EstadosAnomalia",
+                column: "Id_ReporteA");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Residentes_Id_User",
                 table: "Residentes",
                 column: "Id_User");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Roles_UserId_User",
-                table: "Roles",
-                column: "UserId_User");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "EstadoAnomalia");
+                name: "EstadosAnomalia");
 
             migrationBuilder.DropTable(
                 name: "Residentes");
-
-            migrationBuilder.DropTable(
-                name: "Roles");
 
             migrationBuilder.DropTable(
                 name: "ReporteAnomalias");

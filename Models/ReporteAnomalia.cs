@@ -1,8 +1,8 @@
-using System.Collections.ObjectModel;
+
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using ModelResidente.Residente;
-using ModelsEstadoAnomalia.EstadoAnomalia;
+
 
 namespace ModelsReporteAnomalias.ReporteAnomalia
 {
@@ -13,7 +13,7 @@ namespace ModelsReporteAnomalias.ReporteAnomalia
         }
 
         public ReporteAnomalia(string DescripcionAnomalia, DateTime FechaReporteAnomalia,
-        string FotoAnomalia, string TipoAnomalia, string AsuntoAnomalia, Residente Residente,Collection<EstadoAnomalia> Estados )
+        string FotoAnomalia, string TipoAnomalia, string AsuntoAnomalia, Residente Residente)
         {
             this.DescripcionAnomalia = DescripcionAnomalia;
             this.FechaReporteAnomalia = FechaReporteAnomalia;
@@ -21,12 +21,12 @@ namespace ModelsReporteAnomalias.ReporteAnomalia
             this.TipoAnomalia = TipoAnomalia;
             this.AsuntoAnomalia = AsuntoAnomalia;
             this.Residente = Residente;
-            this.Estados =Estados;
+            
         }
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set;}
+        public int Id_ReporteA { get; set;}
         [Required(ErrorMessage = "Por favor ingresa la descripcion de la anomalia")]
         public string DescripcionAnomalia { set; get; }
         [Required(ErrorMessage = "Por favor ingresa la fecha de la anomalia ")]
@@ -40,8 +40,7 @@ namespace ModelsReporteAnomalias.ReporteAnomalia
         [Required(ErrorMessage = "Por favor inresa el id del residente")]
         [ForeignKey("Id_residente")]
         public Residente Residente { get; }
-        [ForeignKey("Id")]
-        public ICollection<EstadoAnomalia> Estados { set; get; }
+       
 
 
     }

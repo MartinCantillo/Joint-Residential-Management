@@ -53,6 +53,9 @@ namespace Joint_Residential_Management.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<int>("Id_ReporteA")
+                        .HasColumnType("int");
+
                     b.Property<string>("Nombre_Estado")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -62,12 +65,14 @@ namespace Joint_Residential_Management.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("EstadoAnomalia");
+                    b.HasIndex("Id_ReporteA");
+
+                    b.ToTable("EstadosAnomalia");
                 });
 
             modelBuilder.Entity("ModelsReporteAnomalias.ReporteAnomalia.ReporteAnomalia", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("Id_ReporteA")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
@@ -90,7 +95,7 @@ namespace Joint_Residential_Management.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id_ReporteA");
 
                     b.ToTable("ReporteAnomalias");
                 });
@@ -131,16 +136,13 @@ namespace Joint_Residential_Management.Migrations
 
             modelBuilder.Entity("ModelsEstadoAnomalia.EstadoAnomalia.EstadoAnomalia", b =>
                 {
-                    b.HasOne("ModelsReporteAnomalias.ReporteAnomalia.ReporteAnomalia", null)
-                        .WithMany("Estados")
-                        .HasForeignKey("Id")
+                    b.HasOne("ModelsReporteAnomalias.ReporteAnomalia.ReporteAnomalia", "ReporteAnomalia")
+                        .WithMany()
+                        .HasForeignKey("Id_ReporteA")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
 
-            modelBuilder.Entity("ModelsReporteAnomalias.ReporteAnomalia.ReporteAnomalia", b =>
-                {
-                    b.Navigation("Estados");
+                    b.Navigation("ReporteAnomalia");
                 });
 #pragma warning restore 612, 618
         }
