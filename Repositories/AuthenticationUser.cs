@@ -1,10 +1,13 @@
+
+
 namespace RepositoriesIAuthenticationUser.IAuthenticationUser
 {
-    public interface IAuthenticationUser{
-        
-        public string GenerateToken(int id,string nombre,ICollection<string>roles);
-     
+    public interface IAuthenticationUser
+    {
+
+        public string GenerateToken(int id, string nombre, string roles);
+
 
     }
-    
+
 }

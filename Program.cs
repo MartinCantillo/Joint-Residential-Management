@@ -9,7 +9,9 @@ using ServicesAuthenticationUser.AuthenticationUser;
 
 var builder = WebApplication.CreateBuilder(args);
 
+//Agego el servicio de autenticacion
 
+builder.Services.AddScoped<IAuthenticationUser, AuthenticationUser>();
 //Config JWT
 //Primero busco la secretkey
 builder.Configuration.AddJsonFile("appsettings.json");
@@ -52,15 +54,14 @@ builder.Services.AddAuthentication(config =>
 
 
 // Add services to the container.
-//Agego el servicio de autenticacion
-builder.Services.AddSingleton<IAuthenticationUser, AuthenticationUser>();
+
+
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-//Aqui agrego mis servicios
-builder.Services.AddScoped<IAuthenticationUser, AuthenticationUser>();
+
 //Servicio de la conexion con la bd
 builder.Services.AddDbContext<DataContext>(options =>
 {

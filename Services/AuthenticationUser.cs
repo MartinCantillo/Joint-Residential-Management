@@ -3,32 +3,36 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
+
 using RepositoriesIAuthenticationUser.IAuthenticationUser;
 
 namespace ServicesAuthenticationUser.AuthenticationUser
 {
     public class AuthenticationUser : IAuthenticationUser
     {
-        //Creacion de la llave secreta
-        private readonly string? secretkey;
+        
         //Inyeccion de dependencia IConfiguration
+        private readonly IConfiguration config;
         public AuthenticationUser(IConfiguration config)
         {
-            //Busco la secretKey donde la almacene , en mi appsettings.json
-            this.secretkey = config.GetSection("settings").GetSection("secretkey").ToString();
+            this.config=config;
+           
         }
 
-        public string GenerateToken(int id, string nombre, ICollection<string> roles)
+        public string GenerateToken(int id, string nombre,string roles)
         {
+             //Busco la secretKey donde la almacene , en mi appsettings.json
+            var secretkey = this.config.GetSection("settings").GetSection("secretkey").ToString();
             // Verifica si la clave secreta está configurada correctamente
             if (string.IsNullOrEmpty(secretkey))
             {
+                
                 // Lanza una excepción si la clave secreta no está configurada
                 throw new InvalidOperationException("La clave secreta no está configurada correctamente.");
             }
 
             // Verifica si los campos requeridos están vacíos
-            if (id == 0 || string.IsNullOrEmpty(nombre) || roles == null || !roles.Any())
+            if (id == 0 || string.IsNullOrEmpty(nombre) || roles == null )
             {
                 // Lanza una excepción si los campos requeridos están vacíos
                 throw new ArgumentException("Los campos requeridos no pueden estar vacíos.");
@@ -42,10 +46,8 @@ namespace ServicesAuthenticationUser.AuthenticationUser
             // Crea un conjunto de claims para el usuario autenticado
             var claims = new ClaimsIdentity();
             // Agrega los roles como claims al conjunto de claims
-            foreach (var rol in roles)
-            {
-                claims.AddClaim(new Claim(ClaimTypes.Role, rol));
-            }
+             claims.AddClaim(new Claim(ClaimTypes.Role, roles));
+            
             // Agrega un claim para el ID del usuario
             claims.AddClaim(new Claim(ClaimTypes.NameIdentifier, id.ToString()));
             // Agrega un claim para el nombre del usuario

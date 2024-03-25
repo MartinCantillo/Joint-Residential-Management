@@ -3,6 +3,7 @@ using System;
 using DataDataContext.DataContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Joint_Residential_Management.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240325184843_fixing2")]
+    partial class fixing2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -95,17 +98,31 @@ namespace Joint_Residential_Management.Migrations
                     b.ToTable("ReporteAnomalias");
                 });
 
+            modelBuilder.Entity("ModelsRoles.Roles.Roles", b =>
+                {
+                    b.Property<int>("Id_Roles")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("nombre")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id_Roles");
+
+                    b.ToTable("Roles");
+                });
+
             modelBuilder.Entity("ModelsUser.User.User", b =>
                 {
                     b.Property<int>("Id_User")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("longtext");
+                    b.Property<int>("Id_Roles")
+                        .HasColumnType("int");
 
-                    b.Property<string>("Roles")
+                    b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("longtext");
 
@@ -114,6 +131,8 @@ namespace Joint_Residential_Management.Migrations
                         .HasColumnType("longtext");
 
                     b.HasKey("Id_User");
+
+                    b.HasIndex("Id_Roles");
 
                     b.ToTable("Users");
                 });
@@ -136,6 +155,17 @@ namespace Joint_Residential_Management.Migrations
                         .HasForeignKey("Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("ModelsUser.User.User", b =>
+                {
+                    b.HasOne("ModelsRoles.Roles.Roles", "Roles")
+                        .WithMany()
+                        .HasForeignKey("Id_Roles")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Roles");
                 });
 
             modelBuilder.Entity("ModelsReporteAnomalias.ReporteAnomalia.ReporteAnomalia", b =>
