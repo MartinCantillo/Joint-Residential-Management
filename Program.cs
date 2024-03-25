@@ -4,7 +4,9 @@ using DataDataContext.DataContext;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Model.Usern;
 using RepositoriesIAuthenticationUser.IAuthenticationUser;
+using RepositoriesIUser;
 using ServicesAuthenticationUser.AuthenticationUser;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +14,7 @@ var builder = WebApplication.CreateBuilder(args);
 //Agego el servicio de autenticacion
 
 builder.Services.AddScoped<IAuthenticationUser, AuthenticationUser>();
+builder.Services.AddScoped<IUser,UserService>();
 //Config JWT
 //Primero busco la secretkey
 builder.Configuration.AddJsonFile("appsettings.json");
