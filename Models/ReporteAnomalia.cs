@@ -2,11 +2,11 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using ModelResidente.Residente;
 
-namespace ModelsReporteAnomalias.ReporteAnomalias
+namespace ModelsReporteAnomalias.ReporteAnomalia
 {
-    public class ReporteAnomalias
+    public class ReporteAnomalia
     {
-        public ReporteAnomalias(string DescripcionAnomalia, string FechaReporteAnomalia,
+        public ReporteAnomalia(string DescripcionAnomalia, string FechaReporteAnomalia,
         string FotoAnomalia, string TipoAnomalia, string AsuntoAnomalia, Residente Residente)
         {
             this.DescripcionAnomalia = DescripcionAnomalia;
