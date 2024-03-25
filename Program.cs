@@ -1,16 +1,64 @@
+
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using RepositoriesIAuthenticationUser.IAuthenticationUser;
 using ServicesAuthenticationUser.AuthenticationUser;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
+//Config JWT
+//Primero busco la secretkey
+builder.Configuration.AddJsonFile("appsettings.json");
+//Obtengo la secretkey
+string? secretkey = builder.Configuration.GetSection("settings").GetSection("secretkey").ToString();
+//codifico la secretkey
+var keyBytes = Encoding.UTF8.GetBytes(secretkey ?? "");
+//Configuro el sistema de jwt en el contenedor
+builder.Services.AddAuthentication(config =>
+{
+    //empiezo a configurarlo
+    //configuro jwt como  el esquema  predeterminado
+    config.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    //configuro el jwt como esquema de desafio predeterminado
+    config.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(config =>
+{
+    //desaactivar la validacion de https para simplificar el desarrollo
+    config.RequireHttpsMetadata = false;
+    //Habilitar la persistencia del token, osea que lo guarda enla memoria local
+    config.SaveToken = true;
+    //configurar la validacion del token
+    config.TokenValidationParameters = new TokenValidationParameters
+    {
+        //primero valido la firma del emisor
+        ValidateIssuerSigningKey = true,
+        //Establezco la clave de la firma del emisor
+        IssuerSigningKey = new SymmetricSecurityKey(keyBytes),
+        //validar el emisor del token
+        ValidateIssuer = true,
+        //valido la audiencia , osea para que apis en especifico se va a usar el token 
+        ValidateAudience = false,
+        ValidateLifetime = true, // Opcional: Validar la vigencia del token
+        ClockSkew = TimeSpan.Zero // Opcional: Sin margen de ajuste para el reloj
+    }
+;
+});
+
+
+
+
 // Add services to the container.
+//Agego el servicio de autenticacion
+builder.Services.AddSingleton<IAuthenticationUser,AuthenticationUser>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 //Aqui agrego mis servicios
-builder.Services.AddScoped<IAuthenticationUser,AuthenticationUser>();
+builder.Services.AddScoped<IAuthenticationUser, AuthenticationUser>();
 
 var app = builder.Build();
 
@@ -22,6 +70,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseAuthentication();
 
 app.UseAuthorization();
 
