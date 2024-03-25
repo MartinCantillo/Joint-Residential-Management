@@ -1,6 +1,8 @@
 
 using System.Text;
+using DataDataContext.DataContext;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using RepositoriesIAuthenticationUser.IAuthenticationUser;
 using ServicesAuthenticationUser.AuthenticationUser;
@@ -51,7 +53,7 @@ builder.Services.AddAuthentication(config =>
 
 // Add services to the container.
 //Agego el servicio de autenticacion
-builder.Services.AddSingleton<IAuthenticationUser,AuthenticationUser>();
+builder.Services.AddSingleton<IAuthenticationUser, AuthenticationUser>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -59,6 +61,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 //Aqui agrego mis servicios
 builder.Services.AddScoped<IAuthenticationUser, AuthenticationUser>();
+//Servicio de la conexion con la bd
+builder.Services.AddDbContext<DataContext>(options =>
+{
+    options.UseMySQL("server=localhost;port=3306;database=bdtestb;user=root");
+});
 
 var app = builder.Build();
 

@@ -7,6 +7,10 @@ namespace ModelResidente.Residente
 
     public class Residente
     {
+        public Residente()
+        {
+        }
+
         public Residente(String Nombre_residente, String Num_apartamento, String Num_telefono, User Usuario)
         {
             this.Nombre_residente = Nombre_residente;
@@ -17,7 +21,7 @@ namespace ModelResidente.Residente
 
         [Key] //primarykey
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]//autoincrementable
-        public int Id_residente { get; }
+        public int Id_residente { get;set; }
         [Required(ErrorMessage = "Por favor ingresa el nombre del residente")]
         public String Nombre_residente { set; get; }
         [Required(ErrorMessage = "Por favor ingresa numero de apartamento")]

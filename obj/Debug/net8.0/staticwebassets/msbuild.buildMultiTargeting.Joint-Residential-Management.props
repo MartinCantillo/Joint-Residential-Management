@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\Joint-Residential-Management.props" />
+</Project>
