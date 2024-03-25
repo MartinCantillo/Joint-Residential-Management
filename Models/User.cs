@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 
-namespace ModelsUser.User
+namespace ModelsUser.Usern
 {
     public class User
     {

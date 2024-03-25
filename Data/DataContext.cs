@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using ModelResidente.Residente;
 using ModelsEstadoAnomalia.EstadoAnomalia;
 using ModelsReporteAnomalias.ReporteAnomalia;
-using ModelsUser.User;
+using ModelsUser.Usern;
 
 namespace DataDataContext.DataContext
 {

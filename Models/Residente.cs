@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using ModelsUser.User;
+using ModelsUser.Usern;
 
 namespace ModelResidente.Residente
 {

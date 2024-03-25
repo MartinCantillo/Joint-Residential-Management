@@ -1,4 +1,4 @@
-using ModelsUser.User;
+using ModelsUser.Usern;
 
 namespace RepositoriesIUser
 {
@@ -7,7 +7,7 @@ namespace RepositoriesIUser
         public Task SaveUser(User user);
         public Task DeleteUser(int Iduser);
         public Task<User> GetById(int idUser);
-        public Task<User> Update(int idUser);
+        public Task<User> Update(int idUser, User user );
         public Task<ICollection<User>> GetAll();
 
     }
