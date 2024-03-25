@@ -7,22 +7,22 @@ namespace ModelsUser.User
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        private int Id_User {  get; }
+        public int Id_User { get; }
 
         [Required]
         [EmailAddress(ErrorMessage = "Username invalido")]
-        private string Username { set; get; }
+        public string Username { set; get; }
 
-        [Required]
-        private string Password { set; get; }
+        [Required(ErrorMessage = "No has ingresado el password")]
+        public string Password { set; get; }
 
-        private ICollection<String> Roles { set; get; }
+        public ICollection<String> Roles { set; get; }
 
-        public User(string Username, string Password)
+        public User(string Username, string Password, ICollection<string> Roles)
         {
             this.Username = Username;
             this.Password = Password;
-            Roles = new HashSet<String>();
+            this.Roles = Roles ?? new HashSet<string>();
         }
     }
 }

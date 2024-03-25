@@ -20,21 +20,21 @@ namespace ModelsReporteAnomalias.ReporteAnomalia
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        private int Id { get; }
-        [Required]
-        private string DescripcionAnomalia { set; get; }
-        [Required]
-        private string FechaReporteAnomalia { set; get; }
-        private string FotoAnomalia { set; get; }
-        [Required]
-        private string TipoAnomalia { set; get; }
-        [Required]
-        private string AsuntoAnomalia { set; get; }
+        public int Id { get; }
+        [Required(ErrorMessage = "Por favor ingresa la descripcion de la anomalia")]
+        public string DescripcionAnomalia { set; get; }
+        [Required(ErrorMessage = "Por favor ingresa la fecha de la anomalia ")]
+        public string FechaReporteAnomalia { set; get; }
+        public string FotoAnomalia { set; get; }
+        [Required(ErrorMessage = "Por favor ingresa el tipo de anomalia")]
+        public string TipoAnomalia { set; get; }
+        [Required(ErrorMessage = "Por favor ingresa el asunto de anomalia")]
+        public string AsuntoAnomalia { set; get; }
 
-        [Required]
+        [Required(ErrorMessage = "Por favor inresa el id del residente")]
         [ForeignKey("Id_residente")]
-        private Residente Residente { get; }
-        private ICollection<String> Estados { set; get; }
+        public Residente Residente { get; }
+        public ICollection<String> Estados { set; get; }
 
 
     }
