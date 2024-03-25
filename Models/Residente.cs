@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using ModelsUser.User;
 
-namespace ModelResidente.Residente;
+namespace ModelResidente.Residente{
 
 public class Residente
 {
@@ -16,7 +16,7 @@ public class Residente
 
     [Key] //primarykey
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]//autoincrementable
-    private int Id_residente { set; get; }
+    private int Id_residente { get; }
     [Required]
     private String Nombre_residente { set; get; }
     [Required]
@@ -31,4 +31,4 @@ public class Residente
 
 
 
-}
+}}

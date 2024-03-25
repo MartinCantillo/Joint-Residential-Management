@@ -7,7 +7,7 @@ namespace ModelsUser.User
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        private int Id_User { set; get; }
+        private int Id_User {  get; }
 
         [Required]
         [EmailAddress(ErrorMessage = "Username invalido")]
