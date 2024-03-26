@@ -8,6 +8,8 @@ using ServicesAuthenticationUser.AuthenticationUser;
 using RepositoriesIAuthenticationUser.IAuthenticationUser;
 using System.Data.Entity;
 using ModelsUser.Usern;
+using RepositoriesIUser;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace ControllerAuthenticateUser.AuthenticateUser
 {
@@ -15,53 +17,57 @@ namespace ControllerAuthenticateUser.AuthenticateUser
     [Route("[controller]")]
     public class AuthenticateUserController : ControllerBase
     {
-        private readonly DataContext _DataContext;
+       
         private readonly IAuthenticationUser _authenticationUser;
-
-        public AuthenticateUserController(IAuthenticationUser authenticationUser, DataContext dataContext)
+        private readonly IUser _IUser;
+        public AuthenticateUserController(IAuthenticationUser authenticationUser,  IUser _IUser)
         {
             _authenticationUser = authenticationUser;
-            _DataContext = dataContext;
+           
+            this._IUser = _IUser;
         }
 
-        [HttpPost("/user")]
+        [HttpPost("/saveUser")]
+        public IActionResult SaveUser(User user)
+        {
+            try
+            {
+                if (user == null)
+                {
+                    throw new ArgumentNullException(nameof(user), "El usuario proporcionado es nulo");
+                }
+
+                _IUser.SaveUser(user);
+
+                return Ok("Usuario guardado exitosamente");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error al guardar usuario: {ex.Message}");
+            }
+        }
+
+        [HttpPost("/userValidate")]
         public IActionResult Validate([FromBody] User user)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest();
-            }
-
-            if (string.IsNullOrEmpty(user.Username) || string.IsNullOrEmpty(user.Password))
-            {
-                Console.WriteLine("Datos vacíos");
-                return BadRequest("Datos vacíos");
-            }
-
-            // Validar las credenciales del usuario
-            User validatedUser = _DataContext.Users.FirstOrDefault(x => x.Username == user.Username && x.Password == user.Password);
-
-            if (validatedUser != null)
-            {
-                // Consultar el usuario completo con sus roles
-                validatedUser = _DataContext.Users.FirstOrDefault(u => u.Id_User == validatedUser.Id_User);
-
-                if (validatedUser != null && validatedUser.Roles != null)
+                if (!ModelState.IsValid)
                 {
-
-                    // Generar el token
-                    string token = _authenticationUser.GenerateToken(validatedUser.Id_User, validatedUser.Username, validatedUser.Roles);
-                    return Accepted(token);
+                    return BadRequest();
                 }
                 else
                 {
-
-                    return BadRequest($"El usuario no tiene roles asignadosa");
+                    //Valido las credencales del usuario
+                    var UserValidated = this._authenticationUser.ValidateUser(user);
+                    // Generar el token
+                    string token = _authenticationUser.GenerateToken(UserValidated.Id_User, UserValidated.Username, UserValidated.Roles);
+                    return Ok(token);
                 }
             }
-            else
+            catch (Exception ex)
             {
-                return NotFound("Usuario no encontrado");
+                return StatusCode(500, ex.Message); // Manejo de la excepción y retorno de un error HTTP 500
             }
         }
 
