@@ -21,12 +21,12 @@ namespace ModelResidente.Residente
 
         [Key] //primarykey
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]//autoincrementable
-        public int Id_residente { get;set; }
+        public int Id_residente { get; set; }
         [Required(ErrorMessage = "Por favor ingresa el nombre del residente")]
         public string Nombre_residente { set; get; }
         [Required(ErrorMessage = "Por favor ingresa numero de apartamento")]
         public string Num_apartamento { get; set; }
-       
+
 
         public string Num_telefono { get; set; }
         [Required(ErrorMessage = "Por favor ingresa el usuario")]

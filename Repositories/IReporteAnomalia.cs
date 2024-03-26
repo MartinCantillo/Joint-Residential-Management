@@ -5,7 +5,7 @@ namespace RepositoriesIReporteAnomalia
     public interface IReporteAnomalia
     {
         public Task SaveReporte(ReporteAnomalia r);
-        public Task GetReporteById(int id);
+        public Task<ReporteAnomalia> GetReporteById(int id);
 
         public Task DeleteReporte(int id);
         public Task<ICollection<ReporteAnomalia>> GetAllByResidente(int id);

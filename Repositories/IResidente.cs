@@ -8,7 +8,7 @@ namespace RepositoriesIResidente.IResidente
 
         public Task SaveResidente(Residente r);
         public Task<ICollection<Residente>> GetAll();
-        public Task GetById(int id);
+        public Task<Residente>GetById(int id);
         public Task Update(int id, Residente r);
     }
 }

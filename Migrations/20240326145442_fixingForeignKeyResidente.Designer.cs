@@ -3,6 +3,7 @@ using System;
 using DataDataContext.DataContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Joint_Residential_Management.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240326145442_fixingForeignKeyResidente")]
+    partial class fixingForeignKeyResidente
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -91,16 +94,11 @@ namespace Joint_Residential_Management.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int>("Id_residente")
-                        .HasColumnType("int");
-
                     b.Property<string>("TipoAnomalia")
                         .IsRequired()
                         .HasColumnType("longtext");
 
                     b.HasKey("Id_ReporteA");
-
-                    b.HasIndex("Id_residente");
 
                     b.ToTable("ReporteAnomalias");
                 });
@@ -151,17 +149,6 @@ namespace Joint_Residential_Management.Migrations
                         .IsRequired();
 
                     b.Navigation("ReporteAnomalia");
-                });
-
-            modelBuilder.Entity("ModelsReporteAnomalias.ReporteAnomalia.ReporteAnomalia", b =>
-                {
-                    b.HasOne("ModelResidente.Residente.Residente", "Residente")
-                        .WithMany()
-                        .HasForeignKey("Id_residente")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Residente");
                 });
 #pragma warning restore 612, 618
         }

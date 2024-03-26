@@ -38,8 +38,9 @@ namespace ModelsReporteAnomalias.ReporteAnomalia
         public string AsuntoAnomalia { set; get; }
 
         [Required(ErrorMessage = "Por favor inresa el id del residente")]
+
         [ForeignKey("Id_residente")]
-        public Residente Residente { get; }
+        public Residente Residente { get;set; }
 
 
 
