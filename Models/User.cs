@@ -8,7 +8,7 @@ namespace ModelsUser.Usern
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id_User { get;set; }
+        public int Id_User { get; set; }
 
         [Required]
         [EmailAddress(ErrorMessage = "Username invalido")]
@@ -16,14 +16,17 @@ namespace ModelsUser.Usern
 
         [Required(ErrorMessage = "No has ingresado el password")]
         public string Password { set; get; }
-       
+        
         public string Roles { set; get; }
+         [Required]
+        public bool IsActivo {get;set;} //Si esta activo el usuario
 
         public User(string Username, string Password, string Roles)
         {
             this.Username = Username;
             this.Password = Password;
             this.Roles = Roles;
+            this.IsActivo=true;
         }
 
         public User()
