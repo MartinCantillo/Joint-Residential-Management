@@ -14,7 +14,7 @@ var builder = WebApplication.CreateBuilder(args);
 //Agego el servicio de autenticacion
 
 builder.Services.AddScoped<IAuthenticationUser, AuthenticationUser>();
-builder.Services.AddScoped<IUser,UserService>();
+builder.Services.AddScoped<IUser, UserService>();
 //Config JWT
 //Primero busco la secretkey
 builder.Configuration.AddJsonFile("appsettings.json");
@@ -45,6 +45,7 @@ builder.Services.AddAuthentication(config =>
         IssuerSigningKey = new SymmetricSecurityKey(keyBytes),
         //validar el emisor del token
         ValidateIssuer = true,
+        ValidIssuer="backend",
         //valido la audiencia , osea para que apis en especifico se va a usar el token 
         ValidateAudience = false,
         ValidateLifetime = true, // Opcional: Validar la vigencia del token

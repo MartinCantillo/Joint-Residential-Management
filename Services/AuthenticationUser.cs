@@ -63,6 +63,10 @@ namespace ServicesAuthenticationUser.AuthenticationUser
             {
                 // Especifica los claims que van en el token
                 Subject = claims,
+                //esto es para que sepa quien emitio el token y le mando un identificador 
+                //y el el contenedor valido que sea esa misma clase backend , esto es para conectar o validar que lo haya emitido
+                //una aplicacion registrada
+                Issuer="backend",
                 // Especifica la fecha de expiración del token
                 Expires = DateTime.UtcNow.AddHours(1), // Token expira en 1 hora
                                                        // Especifica la firma del token
@@ -75,7 +79,7 @@ namespace ServicesAuthenticationUser.AuthenticationUser
             return tokenHandler.WriteToken(token);
         }
 
-        public User ValidateUser(string Username,string password)
+        public User ValidateUser(string Username, string password)
         {
 
             if (string.IsNullOrEmpty(Username) || string.IsNullOrEmpty(password))

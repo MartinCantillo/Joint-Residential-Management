@@ -1,7 +1,9 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Joint_Residential_Management.Controllers;
 
+[Authorize(Roles = "Admin")]
 [ApiController]
 [Route("[controller]")]
 public class WeatherForecastController : ControllerBase
