@@ -1,15 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.AspNetCore.Mvc;
-using DataDataContext.DataContext;
 
-using ServicesAuthenticationUser.AuthenticationUser;
+using Microsoft.AspNetCore.Mvc;
+
+
 using RepositoriesIAuthenticationUser.IAuthenticationUser;
-using System.Data.Entity;
 using ModelsUser.Usern;
 using RepositoriesIUser;
-using Microsoft.AspNetCore.Http.HttpResults;
+
 
 namespace ControllerAuthenticateUser.AuthenticateUser
 {
@@ -17,13 +13,13 @@ namespace ControllerAuthenticateUser.AuthenticateUser
     [Route("[controller]")]
     public class AuthenticateUserController : ControllerBase
     {
-       
+
         private readonly IAuthenticationUser _authenticationUser;
         private readonly IUser _IUser;
-        public AuthenticateUserController(IAuthenticationUser authenticationUser,  IUser _IUser)
+        public AuthenticateUserController(IAuthenticationUser authenticationUser, IUser _IUser)
         {
             _authenticationUser = authenticationUser;
-           
+
             this._IUser = _IUser;
         }
 
@@ -48,18 +44,23 @@ namespace ControllerAuthenticateUser.AuthenticateUser
         }
 
         [HttpPost("/userValidate")]
-        public IActionResult Validate([FromBody] User user)
+        //[fromBody]para deserializar los datos
+        public IActionResult Validate(string user, string password)
         {
             try
             {
-                if (!ModelState.IsValid)
+                if (user == "" || password == "")
                 {
                     return BadRequest();
                 }
                 else
                 {
                     //Valido las credencales del usuario
-                    var UserValidated = this._authenticationUser.ValidateUser(user);
+                    var UserValidated = this._authenticationUser.ValidateUser(user, password);
+                    if (UserValidated == null)
+                    {
+                        throw new Exception("Not found");
+                    }
                     // Generar el token
                     string token = _authenticationUser.GenerateToken(UserValidated.Id_User, UserValidated.Username, UserValidated.Roles);
                     return Ok(token);

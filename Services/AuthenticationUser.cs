@@ -75,10 +75,10 @@ namespace ServicesAuthenticationUser.AuthenticationUser
             return tokenHandler.WriteToken(token);
         }
 
-        public User ValidateUser(User user)
+        public User ValidateUser(string Username,string password)
         {
 
-            if (string.IsNullOrEmpty(user.Username) || string.IsNullOrEmpty(user.Password))
+            if (string.IsNullOrEmpty(Username) || string.IsNullOrEmpty(password))
             {
 
                 throw new Exception("Datos vacios");
@@ -87,7 +87,7 @@ namespace ServicesAuthenticationUser.AuthenticationUser
             else
             {
                 // Validar las credenciales del usuario
-                User validatedUser = _DataContext.Users.FirstOrDefault(x => x.Username == user.Username && x.Password == user.Password);
+                User validatedUser = _DataContext.Users.FirstOrDefault(x => x.Username == Username && x.Password == password);
                 if (validatedUser != null)
                 {
                     // Consultar el usuario completo con sus roles

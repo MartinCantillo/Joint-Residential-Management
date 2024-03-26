@@ -8,7 +8,7 @@ namespace RepositoriesIAuthenticationUser.IAuthenticationUser
     {
 
         public string GenerateToken(int id, string nombre, string roles);
-        public User ValidateUser(User user);
+        public User ValidateUser(string user,string password);
 
     }
 
