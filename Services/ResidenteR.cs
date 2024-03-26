@@ -27,8 +27,8 @@ namespace ServicesResidenteS.SResidente
             }
             else
             {
-             var ResidentFound = await this._DataContext.Residentes.FirstOrDefaultAsync(r => r.Id_residente == id);
-             return ResidentFound;
+                var ResidentFound = await this._DataContext.Residentes.FirstOrDefaultAsync(r => r.Id_residente == id);
+                return ResidentFound;
             }
         }
 
@@ -54,10 +54,11 @@ namespace ServicesResidenteS.SResidente
             else
             {
                 var ResidenteFound = await GetById(id);
-                ResidenteFound.Nombre_residente=r.Nombre_residente;
-                ResidenteFound.Num_apartamento=r.Num_apartamento;
-                ResidenteFound.Num_telefono=r.Num_telefono;
+                ResidenteFound.Nombre_residente = r.Nombre_residente;
+                ResidenteFound.Num_apartamento = r.Num_apartamento;
+                ResidenteFound.Num_telefono = r.Num_telefono;
                 //El usuario no se puede cambiar , solo en la entidad user
+                await this._DataContext.SaveChangesAsync();
             }
         }
     }

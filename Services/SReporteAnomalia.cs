@@ -31,6 +31,7 @@ namespace RepositoriesSReporteAnomalia.SReporteAnomalia
                 else
                 {
                     this._DataContext.ReporteAnomalias.Remove(ReporteFound);
+                    await this._DataContext.SaveChangesAsync();
                 }
             }
         }
@@ -63,9 +64,18 @@ namespace RepositoriesSReporteAnomalia.SReporteAnomalia
             }
         }
 
-        public Task SaveReporte(ReporteAnomalia r)
+        public async Task SaveReporte(ReporteAnomalia r)
         {
-            throw new NotImplementedException();
+            if (r.AsuntoAnomalia == "" || r.DescripcionAnomalia == "" || r.FechaReporteAnomalia == null
+            || r.FotoAnomalia == "" || r.Residente == null || r.TipoAnomalia == "")
+            {
+                throw new Exception("Por favor verifica los datos");
+            }
+            else
+            {
+                await this._DataContext.ReporteAnomalias.AddAsync(r);
+                await this._DataContext.SaveChangesAsync();
+            }
         }
     }
 }
