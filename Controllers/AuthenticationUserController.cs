@@ -18,7 +18,7 @@ namespace ControllerAuthenticateUser.AuthenticateUser
         private readonly IUser _IUser;
         public AuthenticateUserController(IAuthenticationUser authenticationUser, IUser _IUser)
         {
-            _authenticationUser = authenticationUser;
+            this._authenticationUser = authenticationUser;
 
             this._IUser = _IUser;
         }

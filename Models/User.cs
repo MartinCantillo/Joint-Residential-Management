@@ -16,17 +16,18 @@ namespace ModelsUser.Usern
 
         [Required(ErrorMessage = "No has ingresado el password")]
         public string Password { set; get; }
-        
-        public string Roles { set; get; }
-         [Required]
-        public bool IsActivo {get;set;} //Si esta activo el usuario
 
-        public User(string Username, string Password, string Roles)
+        public string Roles { set; get; }
+        [Required]
+        public bool IsActivo { get; set; } //Si esta activo el usuario
+
+        public User(string Username, string Password, string Roles, bool IsActivo)
         {
             this.Username = Username;
             this.Password = Password;
             this.Roles = Roles;
-            this.IsActivo=true;
+            this.IsActivo = IsActivo;
+
         }
 
         public User()

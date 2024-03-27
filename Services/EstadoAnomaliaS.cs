@@ -41,7 +41,7 @@ namespace ServicesEstadoAnomalia.EstadoAnomalias
             else
             {
                 await this.DbContext.EstadosAnomalia.AddAsync(estado);
-                await this.DbContext.SaveChangesAsync();
+                 this.DbContext.SaveChanges();
             }
         }
 
@@ -64,7 +64,7 @@ namespace ServicesEstadoAnomalia.EstadoAnomalias
                     EFound.Nombre_Estado = estado.Nombre_Estado;
                     EFound.ReporteAnomalia = estado.ReporteAnomalia;
 
-                    await this.DbContext.SaveChangesAsync();
+                     this.DbContext.SaveChanges();
                 }
             }
         }

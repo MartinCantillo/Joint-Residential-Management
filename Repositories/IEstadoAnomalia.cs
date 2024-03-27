@@ -8,8 +8,8 @@ namespace RepositoriesEstadoAnomalia.IEstadoAnomalia
         public Task UpdateEstado(EstadoAnomalia estado, int idE);
         public Task<EstadoAnomalia> GetById(int idE);
         public Task<ICollection<EstadoAnomalia>> GetAll();
-
-
+       
+       
 
     }
 

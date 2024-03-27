@@ -58,7 +58,7 @@ namespace ServicesResidenteS.SResidente
                 ResidenteFound.Num_apartamento = r.Num_apartamento;
                 ResidenteFound.Num_telefono = r.Num_telefono;
                 //El usuario no se puede cambiar , solo en la entidad user
-                await this._DataContext.SaveChangesAsync();
+                 this._DataContext.SaveChanges();
             }
         }
     }

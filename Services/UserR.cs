@@ -28,15 +28,15 @@ namespace Model.Usern
                 if (user != null)
                 {
                     this.DbContext.Users.Remove(user);
-                    await this.DbContext.SaveChangesAsync();
+                    this.DbContext.SaveChanges();
                 }
             }
 
         }
 
-        public async Task<ICollection<User>> GetAll()
+        public ICollection<User> GetAll()
         {
-            return await this.DbContext.Users.ToListAsync();
+            return  this.DbContext.Users.ToList();
         }
 
         public async Task<User> GetById(int idUser)
@@ -46,14 +46,25 @@ namespace Model.Usern
 
         public async Task SaveUser(User user)
         {
-            if (user.Username == "" || user.Password == "" || user.Roles == "")
+            if (user.Username == "" || user.Password == "" || user.Roles == "" )
             {
-                throw new ArgumentException("Algun campo esta vacio");
+                throw new Exception("Por favor verifica");
+
             }
             else
             {
-                await DbContext.Users.AddAsync(user);
-                await this.DbContext.SaveChangesAsync();
+                try
+                {
+                    Console.WriteLine($"entro {user.Roles}");
+                     await DbContext.Users.AddAsync(user);
+                 this.DbContext.SaveChanges();
+                }
+                catch (System.Exception)
+                {
+                    
+                    throw;
+                }
+             
 
             }
         }
@@ -61,7 +72,7 @@ namespace Model.Usern
         public async Task<User> Update(int idUser, User user)
         {
 
-            if (idUser == null || idUser == 0)
+            if (idUser == 0)
             {
                 throw new Exception("Por favor valida el Id");
             }

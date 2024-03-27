@@ -8,7 +8,7 @@ namespace RepositoriesIUser
         public Task DeleteUser(int Iduser);
         public Task<User> GetById(int idUser);
         public Task<User> Update(int idUser, User user );
-        public Task<ICollection<User>> GetAll();
+        public ICollection<User> GetAll();
 
     }
 

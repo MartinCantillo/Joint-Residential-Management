@@ -31,7 +31,7 @@ namespace RepositoriesSReporteAnomalia.SReporteAnomalia
                 else
                 {
                     this._DataContext.ReporteAnomalias.Remove(ReporteFound);
-                    await this._DataContext.SaveChangesAsync();
+                     this._DataContext.SaveChanges();
                 }
             }
         }
@@ -74,7 +74,7 @@ namespace RepositoriesSReporteAnomalia.SReporteAnomalia
             else
             {
                 await this._DataContext.ReporteAnomalias.AddAsync(r);
-                await this._DataContext.SaveChangesAsync();
+                this._DataContext.SaveChanges();
             }
         }
     }
