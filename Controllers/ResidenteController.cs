@@ -50,7 +50,7 @@ namespace ResidenteController
 
         }
 
-        [Authorize(Roles ="User")]
+        [Authorize(Roles = "User")]
         [HttpPost("SaveAnomalia")]
         public IActionResult SaveAnomalia([FromBody] ReporteAnomalia reporte)
         {
@@ -70,6 +70,22 @@ namespace ResidenteController
 
                     return BadRequest("Error del servidor");
                 }
+            }
+
+        }
+        [Authorize(Roles ="User")]
+        [HttpGet("GetAllReportesAByResident")]
+        public ActionResult<ICollection<User>> GetAllByResident(int id)
+        {
+            try
+            {
+                return Ok(this._IReporteAnomalia.GetAllByResidente(id));
+
+            }
+            catch (Exception e)
+            {
+
+                return BadRequest($"Error  {e.Message}");
             }
 
         }

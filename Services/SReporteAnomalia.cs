@@ -39,15 +39,19 @@ namespace RepositoriesSReporteAnomalia.SReporteAnomalia
         public async Task GetAll() => await this._DataContext.ReporteAnomalias.ToListAsync();
 
 
-        public async Task<ICollection<ReporteAnomalia>> GetAllByResidente(int id)
+        public ICollection<ReporteAnomalia> GetAllByResidente(int id)
         {
-            if (id == 0)
+            if (id == 0 || id == null)
             {
                 throw new Exception("por favor verifica el id");
             }
             else
             {
-                var ReportesFound = await this._DataContext.ReporteAnomalias.Where(p => p.Residente == id).ToListAsync();
+                var ReportesFound = this._DataContext.ReporteAnomalias.Where(p => p.Residente == id).ToList();
+                if (ReportesFound.Count == 0)
+                {
+                    throw new Exception("El residente no tiene anomalias reportadas");
+                }
                 return ReportesFound;
             }
         }
@@ -69,9 +73,9 @@ namespace RepositoriesSReporteAnomalia.SReporteAnomalia
             if (r.AsuntoAnomalia == "" || r.DescripcionAnomalia == "" || r.FechaReporteAnomalia == null
             || r.FotoAnomalia == "" || r.Residente == 0 || r.TipoAnomalia == "")
             {
-                
+
                 throw new Exception("Por favor verifica los datos");
-                
+
             }
             else
             {
