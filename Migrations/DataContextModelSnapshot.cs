@@ -25,9 +25,6 @@ namespace Joint_Residential_Management.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("Id_User")
-                        .HasColumnType("int");
-
                     b.Property<string>("Nombre_residente")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -40,9 +37,10 @@ namespace Joint_Residential_Management.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.HasKey("Id_residente");
+                    b.Property<int>("Usuario")
+                        .HasColumnType("int");
 
-                    b.HasIndex("Id_User");
+                    b.HasKey("Id_residente");
 
                     b.ToTable("Residentes");
                 });
@@ -53,19 +51,17 @@ namespace Joint_Residential_Management.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("Id_ReporteA")
-                        .HasColumnType("int");
-
                     b.Property<string>("Nombre_Estado")
                         .IsRequired()
                         .HasColumnType("longtext");
+
+                    b.Property<int>("ReporteAnomalia")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("fechaEstado")
                         .HasColumnType("datetime(6)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Id_ReporteA");
 
                     b.ToTable("EstadosAnomalia");
                 });
@@ -91,7 +87,7 @@ namespace Joint_Residential_Management.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int>("Id_residente")
+                    b.Property<int>("Residente")
                         .HasColumnType("int");
 
                     b.Property<string>("TipoAnomalia")
@@ -99,8 +95,6 @@ namespace Joint_Residential_Management.Migrations
                         .HasColumnType("longtext");
 
                     b.HasKey("Id_ReporteA");
-
-                    b.HasIndex("Id_residente");
 
                     b.ToTable("ReporteAnomalias");
                 });
@@ -129,39 +123,6 @@ namespace Joint_Residential_Management.Migrations
                     b.HasKey("Id_User");
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("ModelResidente.Residente.Residente", b =>
-                {
-                    b.HasOne("ModelsUser.Usern.User", "Usuario")
-                        .WithMany()
-                        .HasForeignKey("Id_User")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Usuario");
-                });
-
-            modelBuilder.Entity("ModelsEstadoAnomalia.EstadoAnomalia.EstadoAnomalia", b =>
-                {
-                    b.HasOne("ModelsReporteAnomalias.ReporteAnomalia.ReporteAnomalia", "ReporteAnomalia")
-                        .WithMany()
-                        .HasForeignKey("Id_ReporteA")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ReporteAnomalia");
-                });
-
-            modelBuilder.Entity("ModelsReporteAnomalias.ReporteAnomalia.ReporteAnomalia", b =>
-                {
-                    b.HasOne("ModelResidente.Residente.Residente", "Residente")
-                        .WithMany()
-                        .HasForeignKey("Id_residente")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Residente");
                 });
 #pragma warning restore 612, 618
         }

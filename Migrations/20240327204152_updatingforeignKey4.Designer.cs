@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Joint_Residential_Management.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240326145442_fixingForeignKeyResidente")]
-    partial class fixingForeignKeyResidente
+    [Migration("20240327204152_updatingforeignKey4")]
+    partial class updatingforeignKey4
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -28,9 +28,6 @@ namespace Joint_Residential_Management.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("Id_User")
-                        .HasColumnType("int");
-
                     b.Property<string>("Nombre_residente")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -43,9 +40,10 @@ namespace Joint_Residential_Management.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.HasKey("Id_residente");
+                    b.Property<int>("Usuario")
+                        .HasColumnType("int");
 
-                    b.HasIndex("Id_User");
+                    b.HasKey("Id_residente");
 
                     b.ToTable("Residentes");
                 });
@@ -56,19 +54,17 @@ namespace Joint_Residential_Management.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("Id_ReporteA")
-                        .HasColumnType("int");
-
                     b.Property<string>("Nombre_Estado")
                         .IsRequired()
                         .HasColumnType("longtext");
+
+                    b.Property<int>("ReporteAnomalia")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("fechaEstado")
                         .HasColumnType("datetime(6)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Id_ReporteA");
 
                     b.ToTable("EstadosAnomalia");
                 });
@@ -93,6 +89,9 @@ namespace Joint_Residential_Management.Migrations
                     b.Property<string>("FotoAnomalia")
                         .IsRequired()
                         .HasColumnType("longtext");
+
+                    b.Property<int>("Residente")
+                        .HasColumnType("int");
 
                     b.Property<string>("TipoAnomalia")
                         .IsRequired()
@@ -127,28 +126,6 @@ namespace Joint_Residential_Management.Migrations
                     b.HasKey("Id_User");
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("ModelResidente.Residente.Residente", b =>
-                {
-                    b.HasOne("ModelsUser.Usern.User", "Usuario")
-                        .WithMany()
-                        .HasForeignKey("Id_User")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Usuario");
-                });
-
-            modelBuilder.Entity("ModelsEstadoAnomalia.EstadoAnomalia.EstadoAnomalia", b =>
-                {
-                    b.HasOne("ModelsReporteAnomalias.ReporteAnomalia.ReporteAnomalia", "ReporteAnomalia")
-                        .WithMany()
-                        .HasForeignKey("Id_ReporteA")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ReporteAnomalia");
                 });
 #pragma warning restore 612, 618
         }

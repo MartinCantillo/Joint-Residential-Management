@@ -24,7 +24,7 @@ namespace ControllersUsers.UsersController
             try
             {
 
-                if (user.Username == "" || user.Password == "" || user.Roles == "" )
+                if (user.Username == "" || user.Password == "" || user.Roles == "")
                 {
                     return BadRequest();
 
@@ -43,12 +43,14 @@ namespace ControllersUsers.UsersController
                 throw;
             }
         }
-        [Authorize(Roles = "Admin")]
+
         [HttpGet("GetAllUsers")]
         public ActionResult<ICollection<User>> GetAllUsers()
         {
             return Ok(this._IUser.GetAll());
         }
+
+
 
 
     }

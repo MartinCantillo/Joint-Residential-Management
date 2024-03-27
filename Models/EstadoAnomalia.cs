@@ -10,7 +10,7 @@ namespace ModelsEstadoAnomalia.EstadoAnomalia
         public EstadoAnomalia()
         {
         }
-        public EstadoAnomalia(string Nombre_Estado, DateTime fechaEstado, ReporteAnomalia reporteAnomaliaId)
+        public EstadoAnomalia(string Nombre_Estado, DateTime fechaEstado, int reporteAnomaliaId)
         {
             this.Nombre_Estado = Nombre_Estado;
             this.fechaEstado = fechaEstado;
@@ -25,7 +25,7 @@ namespace ModelsEstadoAnomalia.EstadoAnomalia
         public DateTime fechaEstado { set; get; }
 
         [ForeignKey("Id_ReporteA")]
-        public ReporteAnomalia ReporteAnomalia { set; get; }
+        public int ReporteAnomalia { set; get; }
 
     }
 

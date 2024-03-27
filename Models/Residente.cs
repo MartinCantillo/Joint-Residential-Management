@@ -11,7 +11,7 @@ namespace ModelResidente.Residente
         {
         }
 
-        public Residente(String Nombre_residente, String Num_apartamento, String Num_telefono, User Usuario)
+        public Residente(String Nombre_residente, String Num_apartamento, String Num_telefono, int Usuario)
         {
             this.Nombre_residente = Nombre_residente;
             this.Num_apartamento = Num_apartamento;
@@ -32,7 +32,7 @@ namespace ModelResidente.Residente
         [Required(ErrorMessage = "Por favor ingresa el usuario")]
 
         [ForeignKey("Id_User")]
-        public User Usuario { set; get; }
+        public int Usuario { set; get; }
 
 
 

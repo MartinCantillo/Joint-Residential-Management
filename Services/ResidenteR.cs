@@ -40,8 +40,17 @@ namespace ServicesResidenteS.SResidente
             }
             else
             {
-                await this._DataContext.Residentes.AddAsync(r);
-                await this._DataContext.SaveChangesAsync();
+                try
+                {
+                    this._DataContext.Residentes.Add(r);
+                    this._DataContext.SaveChanges();
+                }
+                catch (System.Exception)
+                {
+
+                    throw;
+                }
+
             }
         }
 
@@ -58,7 +67,7 @@ namespace ServicesResidenteS.SResidente
                 ResidenteFound.Num_apartamento = r.Num_apartamento;
                 ResidenteFound.Num_telefono = r.Num_telefono;
                 //El usuario no se puede cambiar , solo en la entidad user
-                 this._DataContext.SaveChanges();
+                this._DataContext.SaveChanges();
             }
         }
     }

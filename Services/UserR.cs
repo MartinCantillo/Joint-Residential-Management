@@ -36,7 +36,7 @@ namespace Model.Usern
 
         public ICollection<User> GetAll()
         {
-            return  this.DbContext.Users.ToList();
+            return this.DbContext.Users.ToList();
         }
 
         public async Task<User> GetById(int idUser)
@@ -46,7 +46,7 @@ namespace Model.Usern
 
         public async Task SaveUser(User user)
         {
-            if (user.Username == "" || user.Password == "" || user.Roles == "" )
+            if (user.Username == "" || user.Password == "" || user.Roles == "")
             {
                 throw new Exception("Por favor verifica");
 
@@ -56,15 +56,15 @@ namespace Model.Usern
                 try
                 {
                     Console.WriteLine($"entro {user.Roles}");
-                     await DbContext.Users.AddAsync(user);
-                 this.DbContext.SaveChanges();
+                    await DbContext.Users.AddAsync(user);
+                    this.DbContext.SaveChanges();
                 }
                 catch (System.Exception)
                 {
-                    
+
                     throw;
                 }
-             
+
 
             }
         }

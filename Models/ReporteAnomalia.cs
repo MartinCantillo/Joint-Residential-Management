@@ -13,7 +13,7 @@ namespace ModelsReporteAnomalias.ReporteAnomalia
         }
 
         public ReporteAnomalia(string DescripcionAnomalia, DateTime FechaReporteAnomalia,
-        string FotoAnomalia, string TipoAnomalia, string AsuntoAnomalia, Residente Residente)
+        string FotoAnomalia, string TipoAnomalia, string AsuntoAnomalia, int Residente)
         {
             this.DescripcionAnomalia = DescripcionAnomalia;
             this.FechaReporteAnomalia = FechaReporteAnomalia;
@@ -40,7 +40,7 @@ namespace ModelsReporteAnomalias.ReporteAnomalia
         [Required(ErrorMessage = "Por favor inresa el id del residente")]
 
         [ForeignKey("Id_residente")]
-        public Residente Residente { get;set; }
+        public int Residente { get;set; }
 
 
 

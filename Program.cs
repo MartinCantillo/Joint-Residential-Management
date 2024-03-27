@@ -6,8 +6,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Model.Usern;
 using RepositoriesIAuthenticationUser.IAuthenticationUser;
+using RepositoriesIResidente.IResidente;
 using RepositoriesIUser;
 using ServicesAuthenticationUser.AuthenticationUser;
+using ServicesResidenteS.SResidente;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +17,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddScoped<IAuthenticationUser, AuthenticationUser>();
 builder.Services.AddScoped<IUser, UserService>();
+builder.Services.AddScoped<IResidente, SResidente>();
 //Config JWT
 //Primero busco la secretkey
 builder.Configuration.AddJsonFile("appsettings.json");

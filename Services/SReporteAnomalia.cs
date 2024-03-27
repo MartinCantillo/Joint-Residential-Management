@@ -47,7 +47,7 @@ namespace RepositoriesSReporteAnomalia.SReporteAnomalia
             }
             else
             {
-                var ReportesFound = await this._DataContext.ReporteAnomalias.Where(p => p.Residente.Id_residente == id).ToListAsync();
+                var ReportesFound = await this._DataContext.ReporteAnomalias.Where(p => p.Residente == id).ToListAsync();
                 return ReportesFound;
             }
         }
@@ -67,7 +67,7 @@ namespace RepositoriesSReporteAnomalia.SReporteAnomalia
         public async Task SaveReporte(ReporteAnomalia r)
         {
             if (r.AsuntoAnomalia == "" || r.DescripcionAnomalia == "" || r.FechaReporteAnomalia == null
-            || r.FotoAnomalia == "" || r.Residente == null || r.TipoAnomalia == "")
+            || r.FotoAnomalia == "" || r.Residente == 0 || r.TipoAnomalia == "")
             {
                 throw new Exception("Por favor verifica los datos");
             }
