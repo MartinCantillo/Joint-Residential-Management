@@ -50,7 +50,7 @@ namespace ResidenteController
 
         }
 
-        //  [Authorize(Roles = "User")]
+        [Authorize(Roles ="User")]
         [HttpPost("SaveAnomalia")]
         public IActionResult SaveAnomalia([FromBody] ReporteAnomalia reporte)
         {
