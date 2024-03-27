@@ -6,9 +6,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Model.Usern;
 using RepositoriesIAuthenticationUser.IAuthenticationUser;
+using RepositoriesIReporteAnomalia;
 using RepositoriesIResidente.IResidente;
 using RepositoriesIUser;
+using RepositoriesSReporteAnomalia.SReporteAnomalia;
 using ServicesAuthenticationUser.AuthenticationUser;
+using ServicesEstadoAnomalia.EstadoAnomalias;
 using ServicesResidenteS.SResidente;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,6 +21,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<IAuthenticationUser, AuthenticationUser>();
 builder.Services.AddScoped<IUser, UserService>();
 builder.Services.AddScoped<IResidente, SResidente>();
+builder.Services.AddScoped<IReporteAnomalia, SReporteAnomalia>();
 //Config JWT
 //Primero busco la secretkey
 builder.Configuration.AddJsonFile("appsettings.json");
@@ -48,7 +52,7 @@ builder.Services.AddAuthentication(config =>
         IssuerSigningKey = new SymmetricSecurityKey(keyBytes),
         //validar el emisor del token
         ValidateIssuer = true,
-        ValidIssuer="backend",
+        ValidIssuer = "backend",
         //valido la audiencia , osea para que apis en especifico se va a usar el token 
         ValidateAudience = false,
         ValidateLifetime = true, // Opcional: Validar la vigencia del token

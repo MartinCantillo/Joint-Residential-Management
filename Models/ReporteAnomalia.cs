@@ -27,13 +27,17 @@ namespace ModelsReporteAnomalias.ReporteAnomalia
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id_ReporteA { get; set; }
+        
         [Required(ErrorMessage = "Por favor ingresa la descripcion de la anomalia")]
         public string DescripcionAnomalia { set; get; }
+
         [Required(ErrorMessage = "Por favor ingresa la fecha de la anomalia ")]
         public DateTime FechaReporteAnomalia { set; get; }
         public string FotoAnomalia { set; get; }
+
         [Required(ErrorMessage = "Por favor ingresa el tipo de anomalia")]
         public string TipoAnomalia { set; get; }
+
         [Required(ErrorMessage = "Por favor ingresa el asunto de anomalia")]
         public string AsuntoAnomalia { set; get; }
 

@@ -51,7 +51,7 @@ namespace ControllerAuthenticateUser.AuthenticateUser
             {
                 if (user == "" || password == "")
                 {
-                    return BadRequest();
+                    return BadRequest("Por favor ingrese los datos S");
                 }
                 else
                 {
