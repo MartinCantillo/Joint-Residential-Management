@@ -15,26 +15,25 @@ namespace RepositoriesSReporteAnomalia.SReporteAnomalia
 
         }
 
-        public async Task DeleteReporte(int id)
+        public void DeleteReporte(int id)
         {
             if (id == 0)
             {
                 throw new Exception("Por favor verifica el id");
             }
-            else
+
+            var reporteFound = GetReporteById(id); // Espero el resultado del Task
+
+            if (reporteFound == null)
             {
-                var ReporteFound = await GetReporteById(id);
-                if (ReporteFound == null)
-                {
-                    throw new Exception("Reporte no encontrado");
-                }
-                else
-                {
-                    this._DataContext.ReporteAnomalias.Remove(ReporteFound);
-                    this._DataContext.SaveChanges();
-                }
+                throw new Exception("Reporte no encontrado");
             }
+
+            Console.WriteLine($"reporte encontrado es {reporteFound.DescripcionAnomalia}");
+            this._DataContext.ReporteAnomalias.Remove(reporteFound);
+            this._DataContext.SaveChanges();
         }
+
 
         public async Task GetAll() => await this._DataContext.ReporteAnomalias.ToListAsync();
 
@@ -56,7 +55,7 @@ namespace RepositoriesSReporteAnomalia.SReporteAnomalia
             }
         }
 
-        public async Task<ReporteAnomalia> GetReporteById(int id)
+        public ReporteAnomalia GetReporteById(int id)
         {
             if (id == 0)
             {
@@ -64,7 +63,7 @@ namespace RepositoriesSReporteAnomalia.SReporteAnomalia
             }
             else
             {
-                return await this._DataContext.ReporteAnomalias.FirstOrDefaultAsync(p => p.Id_ReporteA == id);
+                return this._DataContext.ReporteAnomalias.FirstOrDefault(p => p.Id_ReporteA == id);
             }
         }
 

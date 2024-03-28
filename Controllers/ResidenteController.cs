@@ -73,7 +73,7 @@ namespace ResidenteController
             }
 
         }
-        [Authorize(Roles ="User")]
+        [Authorize(Roles = "User")]
         [HttpGet("GetAllReportesAByResident")]
         public ActionResult<ICollection<User>> GetAllByResident(int id)
         {
@@ -90,6 +90,30 @@ namespace ResidenteController
 
         }
 
+        // [Authorize(Roles = "User")]
+        [HttpDelete("DeleteReporte")]
+        public IActionResult DeleteReporte(int id)
+        {
+            if (id == 0 || id == null)
+            {
+                return BadRequest("Por favor verifica el id");
+            }
+            else
+            {
+                try
+                {
+                    this._IReporteAnomalia.DeleteReporte(id);
+                    return Ok("El reporte se eliminó correctamente");
+                }
+                catch (Exception e)
+                {
+
+                    return BadRequest(e.Message);
+                }
+            }
+
+
+        }
 
     }
 
