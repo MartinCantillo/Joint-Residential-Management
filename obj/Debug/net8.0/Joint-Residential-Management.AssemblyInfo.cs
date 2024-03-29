@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Joint-Residential-Management")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0f3bb18c970f0e1d7c06428957c6e21eb37dff2c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9e21c690803e8bfff2df9ef2f804f50683089456")]
 [assembly: System.Reflection.AssemblyProductAttribute("Joint-Residential-Management")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Joint-Residential-Management")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

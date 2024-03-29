@@ -37,10 +37,10 @@ namespace ControllersUsers.UsersController
 
 
             }
-            catch (System.Exception)
+            catch (Exception e )
             {
 
-                throw;
+                return BadRequest(e);
             }
         }
 

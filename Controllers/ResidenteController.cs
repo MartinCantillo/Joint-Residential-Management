@@ -90,7 +90,7 @@ namespace ResidenteController
 
         }
 
-        // [Authorize(Roles = "User")]
+        [Authorize(Roles = "User")]
         [HttpDelete("DeleteReporte")]
         public IActionResult DeleteReporte(int id)
         {
